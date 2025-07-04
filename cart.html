@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXON - PC Parts</title>
+  <link rel="stylesheet" href="car.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style></style>
+</head>
+<body>
+
+</div>
+    <div class="cart-controls">
+  <button onclick="clearCart()" class="clr-krt">🗑️ Clear Cart</button>
+</div>
+
+<!-- Cart Display Box -->
+<div id="cartBox" class="cart-box hidden">
+<br>
+  <ul id="cartItems"></ul>
+  <p id="totalPrice"></p>
+  <button onclick="window.location.href='C:\\Users\\LENOVO\\sujl code\\car.html'" class="clr-krt">Close</button>
+</div>
+
+
+     
+        <button id="toggletheme" class="theme-toggle">
+          
+        </button>
+        <a href="" class="cart-icon">
+      
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>NEXON</h3>
+        <p>Next Generation PC Parts</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 NEXON. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  const currentUser = localStorage.getItem("currentUser");
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+
+  function getUserCart() {
+    if (!currentUser || !users[currentUser]) return [];
+    return users[currentUser].cart || [];
+  }
+
+  function saveUserCart(cart) {
+    if (!currentUser || !users[currentUser]) return;
+    users[currentUser].cart = cart;
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
+  function displayCart() {
+    const cart = getUserCart();
+    const cartList = document.getElementById("cartItems");
+    const totalPriceElem = document.getElementById("totalPrice");
+
+    if (cart.length === 0) {
+      cartList.innerHTML = "<li>Your cart is empty.</li>";
+      totalPriceElem.textContent = "";
+      return;
+    }
+
+    cartList.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      cartList.innerHTML += `
+        <li>${item.name} × ${item.quantity} — $${item.price * item.quantity}</li>
+      `;
+    });
+
+    totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
+  }
+
+  function clearCart() {
+    saveUserCart([]);
+    displayCart();
+  }
+
+  document.addEventListener("DOMContentLoaded", displayCart);
+</script>
+
+
+</body>
+</html>
